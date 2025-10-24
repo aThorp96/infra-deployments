@@ -42,12 +42,12 @@ for f in head/components/pipeline-service/**/deploy.yaml; do
     OLD_BUILD_VERSION=$(echo "${OLD_CATALOG}" | jq -r 'select(.name | startswith("openshift-pipelines-operator-rh.v5.0.5")) | .properties.[] | select(.type == "olm.package") | .value.version')
     NEW_BUILD_VERSION=$(echo "${NEW_CATALOG}" | jq -r 'select(.name | startswith("openshift-pipelines-operator-rh.v5.0.5")) | .properties.[] | select(.type == "olm.package") | .value.version')
 
-    echo "Comparing old build ${OLD_BUILD_VERSION} to new build ${NEW_BUILD_VERSION}"
-
     OLD_BUILD_ID=$(echo "${OLD_BUILD_VERSION}" | cut -d '-' -f2)
     NEW_BUILD_ID=$(echo "${NEW_BUILD_VERSION}" | cut -d '-' -f2)
 
-    if [ "${OLD_BUILD_ID}" -ge "${NEW_BUILD_ID}" ]; then
+    echo "Comparing old build ${OLD_BUILD_VERSION} (${OLD_BUILD_ID}) to new build ${NEW_BUILD_VERSION} (${NEW_BUILD_ID})"
+
+    if (( "${OLD_BUILD_ID}" >= "${NEW_BUILD_ID}" )); then
         OUTPUT="${OUTPUT}:warning: New index image in ${CONFIG} uses a package version (${NEW_BUILD_VERSION}) which is not higher than currently applied package version (${OLD_BUILD_VERSION}). When applied, operator might not upgrade to new index\n"
         LINE_NUMBER=$(grep --line-number "image: ${NEW_INDEX_IMAGE}" "${NEW_CONFIG}" | cut -d ':' -f1)
         echo "::warning file=${CONFIG},line=${LINE_NUMBER}::Index references bundle version ${NEW_BUILD_VERSION} which is not higher than previous bundle version ${OLD_BUILD_VERSION}"
