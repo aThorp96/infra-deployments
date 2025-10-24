@@ -42,6 +42,8 @@ for f in head/components/pipeline-service/**/deploy.yaml; do
     OLD_BUILD_VERSION=$(echo "${OLD_CATALOG}" | jq -r 'select(.name | startswith("openshift-pipelines-operator-rh.v5.0.5")) | .properties.[] | select(.type == "olm.package") | .value.version')
     NEW_BUILD_VERSION=$(echo "${NEW_CATALOG}" | jq -r 'select(.name | startswith("openshift-pipelines-operator-rh.v5.0.5")) | .properties.[] | select(.type == "olm.package") | .value.version')
 
+    echo "Comparing old build ${OLD_BUILD_VERSION} to new build ${NEW_BUILD_VERSION}"
+
     OLD_BUILD_ID=$(echo "${OLD_BUILD_VERSION}" | cut -d '-' -f2)
     NEW_BUILD_ID=$(echo "${NEW_BUILD_VERSION}" | cut -d '-' -f2)
 
