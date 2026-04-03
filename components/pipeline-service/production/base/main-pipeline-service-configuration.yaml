@@ -2009,7 +2009,7 @@ spec:
     keep-since: 80
     resources:
       - pipelinerun
-    schedule: '*/30 * * * *'
+    schedule: '*/15 * * * *'
   result:
     disabled: true
   targetNamespace: openshift-pipelines
