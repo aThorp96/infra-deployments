@@ -1599,7 +1599,7 @@ metadata:
 spec:
   endpoints:
   - honorLabels: true
-    interval: 15s
+    interval: 13s
     path: /metrics
     port: metrics
     scheme: http
