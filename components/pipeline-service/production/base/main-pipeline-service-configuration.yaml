@@ -1599,7 +1599,7 @@ metadata:
 spec:
   endpoints:
   - honorLabels: true
-    interval: 15s
+    interval: 13s
     path: /metrics
     port: metrics
     scheme: http
@@ -2009,7 +2009,7 @@ spec:
     keep-since: 80
     resources:
       - pipelinerun
-    schedule: '*/30 * * * *'
+    schedule: '*/15 * * * *'
   result:
     disabled: true
   targetNamespace: openshift-pipelines
