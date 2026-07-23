@@ -2275,9 +2275,11 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "0"
     haproxy.router.openshift.io/hsts_header: max-age=63072000
-    haproxy.router.openshift.io/timeout: 86410s
+    # NOTE(athorp): 10 seconds longer than the health check interval for historical reasons
+    # I am not sure the reasoning
+    haproxy.router.openshift.io/timeout: 610s
     openshift.io/host.generated: "true"
-    router.openshift.io/haproxy.health.check.interval: 86400s
+    router.openshift.io/haproxy.health.check.interval: 600s
   labels:
     app.kubernetes.io/part-of: tekton-results
   name: tekton-results
